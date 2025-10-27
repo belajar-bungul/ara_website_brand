@@ -21,6 +21,6 @@
     ],
     "price" : 56.10,
     "currency": "USD",
-    'license': 'LGPL-3',
+    "license": "AGPL-3",
     'application': False,
 }
