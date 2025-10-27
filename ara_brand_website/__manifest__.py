@@ -2,7 +2,6 @@
     'name': 'ARA Brand Website',
     'category': 'portal',
     'version': "18.0.0.0.0",
-    'license': 'OPL-1',
     'author': 'ARA Soft',
     'depends': [
         'website_sale', 'product_brand'
