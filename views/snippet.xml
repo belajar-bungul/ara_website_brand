@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="custom_snippet_options_brands" inherit_id="website.snippet_options" name="E-commerce Snippet Options">
+        <!-- Tambah pilihan ke dalam Mega Menu -->
+        <xpath expr="//div[@data-js='MegaMenuLayout']/we-select[@data-name='mega_menu_template_opt']" position="inside">
+            
+            <!-- Odoo Menu Brands -->
+            <t t-set="_label">Odoo Menu Brands</t>
+            <we-button
+                t-att-data-select-label="_label"
+                data-dependencies="!fetch_ecom_categories_opt"
+                data-select-template="ara_brand_website.s_mega_menu_odoo_menu_brands"
+                data-img="/website/static/src/img/snippets_thumbs/s_mega_menu_odoo_menu.svg"
+                t-out="_label"
+            />
+            
+            <!-- Odoo Menu Brands -->
+            <t t-set="_label">Odoo Menu Brands</t>
+            <we-button
+                t-att-data-select-label="_label"
+                data-dependencies="fetch_ecom_categories_opt"
+                data-select-template="ara_brand_website.s_mega_menu_odoo_menu_brands"
+                data-img="/website/static/src/img/snippets_thumbs/s_mega_menu_odoo_menu.svg"
+                t-out="_label"
+            />
+            
+
+        </xpath>
+    </template>
+</odoo>

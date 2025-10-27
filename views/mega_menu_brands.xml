@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template groups="base.group_user" name="eCommerce: Odoo Menu Brands" id="ara_brand_website.s_mega_menu_odoo_menu_brands">
+        <section class="s_mega_menu_odoo_menu py-3 o_colored_level o_cc o_cc1">
+            <div class="container">
+
+                <!-- Search Box -->
+                <div class="row mb-3">
+                    <div class="col-12">
+                        <input type="text" id="brandSearchInput" class="form-control form-control-sm" placeholder=" 🔍 Search Brand... "/>
+                    </div>
+                </div>
+
+                <!-- ================= MOBILE ================= -->
+                <div class="d-block d-md-none">
+                    <!-- Top Highlight -->
+                    <div id="topHighlightMobile" class="mb-3">
+                        <b><small>Top Highlight</small></b>
+                        <hr/>
+                        <div style="display:flex; flex-wrap:nowrap; overflow-x:auto; gap:8px; padding:4px 0;">
+                            <t t-set="top_brands_mobile" t-value="request.env['product.brand'].sudo().search([('highlight','=',True)])"/>
+                            <t t-foreach="top_brands_mobile" t-as="brand">
+                                <div class="brand-item" style="flex:0 0 auto; width:120px; text-align:center;">
+                                    <a t-att-href="'/shop?brand_id=%s' % brand.id" class="brand-link text-primary fw-semibold">
+                                        <t t-esc="brand.name"/>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+
+                    <!-- All Brands -->
+                    <div id="normalBrandsMobile" class="mb-3">
+                        <b><small>All Brands</small></b>
+                        <hr/>
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <t t-set="all_brands_mobile" t-value="request.env['product.brand'].sudo().search([('highlight','=',False)])"/>
+                            <t t-foreach="all_brands_mobile" t-as="brand">
+                                <div class="brand-item text-center">
+                                    <a t-att-href="'/shop?brand_id=%s' % brand.id" class="brand-link">
+                                        <t t-esc="brand.name"/>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= DESKTOP ================= -->
+                <div class="row gx-3 gy-3 d-none d-md-flex">
+
+                    <!-- Left Column -->
+                    <div class="col-md-8">
+                        <div id="generalBrands">
+
+                            <!-- Top Highlight Desktop -->
+                            <b><small>Top Highlight</small></b>
+                            <hr class="mt-1 mb-2"/>
+                            <t t-set="top_brands" t-value="request.env['product.brand'].sudo().search([('highlight','=',True)])"/>
+                            <t t-if="top_brands">
+                                <div class="row row-cols-2 row-cols-md-3 g-2 mb-4">
+                                    <t t-foreach="top_brands" t-as="brand">
+                                        <div class="col text-center brand-item">
+                                            <a t-att-href="'/shop?brand_id=%s' % brand.id" class="brand-link text-primary fw-semibold">
+                                                <t t-esc="brand.name"/>
+                                            </a>
+                                        </div>
+                                    </t>
+                                </div>
+                            </t>
+
+                            <!-- Separator -->
+                            <b><small>All Brands</small></b>
+                            <hr class="mt-1 mb-2"/>
+
+                            <!-- Normal Brands Desktop -->
+                            <t t-set="all_brands" t-value="request.env['product.brand'].sudo().search([('highlight','=',False)])"/>
+                            <div class="row row-cols-2 row-cols-md-3 g-2" id="normalBrandRows">
+                                <t t-foreach="all_brands" t-as="brand">
+                                    <div class="col text-center brand-item">
+                                        <a t-att-href="'/shop?brand_id=%s' % brand.id" class="brand-link">
+                                            <t t-esc="brand.name"/>
+                                        </a>
+                                    </div>
+                                </t>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Column -->
+                    <div class="col-md-4">
+                        <b><small>Featured Brands</small></b>
+                        <hr class="mt-1 mb-2"/>
+                        <div style="max-height:420px; overflow-y:auto;">
+                            <t t-set="image_brands" t-value="request.env['product.brand'].sudo().search([('logo','!=',False)])"/>
+                            <t t-foreach="image_brands" t-as="brand">
+                                <div class="brand-item mb-3 text-center">
+                                    <a t-att-href="'/shop?brand_id=%s' % brand.id" class="brand-link p-0 border-0">
+                                        <t t-if="brand.logo">
+                                            <img t-att-src="'/web/image/product.brand/%d/logo' % brand.id"
+                                                style="max-width:100%; border-radius:8px; margin-bottom:4px;"/>
+                                        </t>
+                                    </a>
+                                </div>
+                            </t>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ================= STYLE ================= -->
+                <style>
+                    .brand-item .brand-link {
+                        display: block;
+                        padding: 8px 10px;
+                        text-decoration: none;
+                        color: #000;
+                        font-size: 14px;
+                        font-weight: 600;
+                        border-radius: 8px;
+                        text-align: center;
+                        background: #f7f5f5ff;
+                        border: 1px solid #ddd;
+                        transition: transform 0.2s ease, box-shadow 0.2s ease;
+                    }
+                    .brand-item .brand-link:hover {
+                        transform: translateY(-2px);
+                        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                        text-decoration: none;
+                        border-color: #bbb;
+                    }
+                    #brandSearchInput {
+                        border-radius: 8px;
+                        font-size: 14px;
+                    }
+                </style>
+
+                <!-- ================= JS: Search + Sort ================= -->
+                <script>
+                    document.addEventListener("DOMContentLoaded", function () {
+                        const input = document.getElementById("brandSearchInput");
+
+                        // Mobile containers
+                        const topMobile = document.getElementById("topHighlightMobile");
+                        const normalMobile = document.getElementById("normalBrandsMobile");
+
+                        // Desktop containers
+                        const generalBrands = document.getElementById("generalBrands");
+
+                        // Semua brand-item
+                        const allItems = [
+                            ...document.querySelectorAll(".brand-item")
+                        ];
+
+                        // Sort All Brands Desktop Alphabetically
+                        const normalContainer = document.getElementById("normalBrandRows");
+                        if (normalContainer) {
+                            const normalDesktopItems = Array.from(normalContainer.querySelectorAll(".brand-item"));
+                            normalDesktopItems.sort((a, b) => a.innerText.trim().localeCompare(b.innerText.trim()));
+                            normalDesktopItems.forEach(item => normalContainer.appendChild(item));
+                        }
+
+                        // Search filter
+                        input.addEventListener("keyup", function () {
+                            const filter = input.value.toLowerCase();
+                            allItems.forEach(item => {
+                                const text = item.innerText.toLowerCase();
+                                item.style.display = text.includes(filter) ? "" : "none";
+                            });
+                        });
+                    });
+                </script>
+
+            </div>
+        </section>
+    </template>
+</odoo>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+  <template id="fal_shop_brand_filter" inherit_id="website_sale.products_attributes" name="Brand Filter">
+    <xpath expr="///div[contains(@t-attf-class, 'products_attributes_filters')]" position="before">
+      <div class="form-group mb-3">
+        <label for="fal_brand_select"><b>Brands</b></label>
+        <select id="fal_brand_select" class="form-select">
+          <option value="" t-att-selected="'selected' if not selected_brand else None">
+            All Brands
+          </option>
+          <t t-foreach="brands" t-as="brand">
+            <option t-att-value="brand.id"
+                    t-att-selected="'selected' if str(brand.id) == str(selected_brand) else None">
+              <t t-esc="brand.name"/>
+            </option>
+          </t>
+        </select>
+      </div>
+    </xpath>
+  </template>
+</odoo>
