@@ -23,4 +23,5 @@
     "currency": "USD",
     "license": "AGPL-3",
     'application': False,
+    'images': ['static/description/banner.gif'],
 }
