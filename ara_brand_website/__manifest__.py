@@ -2,7 +2,7 @@
     'name': 'ARA Brand Website',
     'category': 'portal',
     'version': "18.0.0.0.0",
-    'author': 'ARA Soft',
+    'author': 'ARA SOFT',
     'depends': [
         'website_sale', 'product_brand'
     ],
