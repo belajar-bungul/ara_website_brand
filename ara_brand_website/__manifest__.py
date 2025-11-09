@@ -19,7 +19,7 @@
     },
     'demo': [
     ],
-    "price" : 56.10,
+    "price" : 45.12,
     "currency": "USD",
     "license": "AGPL-3",
     'application': False,
